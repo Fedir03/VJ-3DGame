@@ -1,0 +1,11 @@
+* text=auto
+
+*.mat binary
+*.anim binary
+*.unity binary
+*.prefab binary
+*.physicsMaterial2D binary
+*.physicMaterial binary
+*.asset binary
+*.meta binary
+*.controller binary
