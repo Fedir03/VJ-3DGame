@@ -20,6 +20,7 @@ public class MovePlayer : MonoBehaviour
     public float speed = 1.0f;              // Speed of movement
     public float heightJump = 0.5f;         // Height of the jump during a move
     public AudioClip jumpSound, pushSound;  // Sound for moving and pushing a box
+    public float tileSize = 2.0f;
 
     PlayerState state;               // Current player state
     Direction dir;                   // Current direction the player is facing
@@ -62,22 +63,22 @@ public class MovePlayer : MonoBehaviour
             if(Input.GetKey(KeyCode.UpArrow))
             {
                 bMove = true;
-                dirMove = Direction.UP;
+                dirMove = Direction.RIGHT;
             }
             else if (Input.GetKey(KeyCode.RightArrow))
             {
                 bMove = true;
-                dirMove = Direction.RIGHT;
+                dirMove = Direction.DOWN;
             }
             else if (Input.GetKey(KeyCode.DownArrow))
             {
                 bMove = true;
-                dirMove = Direction.DOWN;
+                dirMove = Direction.LEFT;
             }
             else if (Input.GetKey(KeyCode.LeftArrow))
             {
                 bMove = true;
-                dirMove = Direction.LEFT;
+                dirMove = Direction.UP;
             }
             if (bMove)
                 PrepareMovement(dirMove);
@@ -99,23 +100,21 @@ public class MovePlayer : MonoBehaviour
         // Save the initial position of the player before moving
         initialPosMove = transform.localPosition;
         // From angleMove we compute the vector of the movement's displacement
-        vecMove = new Vector3(Mathf.Sin(angleMove), 0.0f, Mathf.Cos(angleMove));
+        vecMove = new Vector3(Mathf.Sin(angleMove), 0.0f, Mathf.Cos(angleMove)) * tileSize;
 
         // We look for a object tagged as "Wall" next to the player in the movement's direction 
         // If present, we cannot move
-        GameObject obj = GetObjectInDirection("Wall", initialPosMove, vecMove, 0.0f, 1.0f);
+        GameObject obj = GetObjectInDirection("Wall", initialPosMove, vecMove.normalized, 0.0f, tileSize);
         if ((obj != null) && (obj.tag == "Wall"))
             bMove = false;
         else
         {
             // Otherwise, we check for a box
-            obj = GetObjectInDirection("Box", initialPosMove, vecMove, 0.0f, 1.0f);
+            obj = GetObjectInDirection("Box", initialPosMove, vecMove.normalized, 0.0f, tileSize);
             if ((obj != null) && (obj.tag == "Box"))
             {
-                // If a box is present, we check if just beyond there is a wall or box.
-                // If that is the case we cannot move. Otherwise, we need to push the box adjacent to the player.
                 box = obj.transform.parent.gameObject;
-                obj = GetObjectInDirection(null, initialPosMove, vecMove, 1.0f, 2.0f);
+                obj = GetObjectInDirection(null, initialPosMove, vecMove.normalized, tileSize, tileSize * 2.0f);
                 if ((obj == null) || ((obj.tag != "Wall") && (obj.tag != "Box")))
                 {
                     bMoveBox = true;

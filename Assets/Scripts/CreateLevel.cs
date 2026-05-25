@@ -10,8 +10,9 @@ public class CreateLevel : MonoBehaviour
     public GameObject player;                   // Reference to the player object.
                                                 // We need to position it according to the level.
     public GameObject ground, wall, box, goal;  // References to objects we need to instantiate to
-                                                // build the level.
 
+    public float tileSize = 2.0f;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -39,7 +40,7 @@ public class CreateLevel : MonoBehaviour
                     int tile = int.Parse(tokens[x]);
 
                     // All tiles will have a ground instance under them. We instantiate it here.
-                    GameObject obj = Instantiate(ground, new Vector3(x, 0.0f, y), transform.rotation);
+                    GameObject obj = Instantiate(ground, new Vector3(x * tileSize, 0.0f, y * tileSize), transform.rotation);
                     // All instances created by this script end as children of the object that contains the script.
                     obj.transform.parent = transform;
 
@@ -47,20 +48,19 @@ public class CreateLevel : MonoBehaviour
                     switch (tile)
                     {
                         case 2:
-                            obj = Instantiate(wall, new Vector3(x, 0.0f, y), transform.rotation);
+                            obj = Instantiate(wall, new Vector3(x * tileSize, 0.0f, y * tileSize), transform.rotation);
                             obj.transform.parent = transform;
                             break;
                         case 3:
-                            obj = Instantiate(goal, new Vector3(x, 0.0f, y), transform.rotation);
+                            obj = Instantiate(goal, new Vector3(x * tileSize, 0.0f, y * tileSize), transform.rotation);
                             obj.transform.parent = transform;
                             break;
                         case 5:
-                            obj = Instantiate(box, new Vector3(x, 0.0f, y), transform.rotation);
+                            obj = Instantiate(box, new Vector3(x * tileSize, 0.0f, y * tileSize), transform.rotation);
                             obj.transform.parent = transform;
                             break;
                         case 6:
-                            // For the player, we position it at the location of the tile with the player tile id.
-                            player.transform.Translate(x, 0.0f, y);
+                            player.transform.position = new Vector3(x * tileSize, player.transform.position.y, y * tileSize);
                             break;
                     }
                 }
