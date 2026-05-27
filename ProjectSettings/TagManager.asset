@@ -8,6 +8,7 @@ TagManager:
   - Goal
   - Wall
   - Enemy
+  - SlimeTrail
   layers:
   - Default
   - TransparentFX

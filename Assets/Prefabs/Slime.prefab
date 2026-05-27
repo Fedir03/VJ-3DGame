@@ -178,6 +178,7 @@ MonoBehaviour:
   speed: 1
   heightJump: 0.5
   tileSize: 2
+  slimeTrailPrefab: {fileID: 4212344974643651213, guid: 35867143063080647adcaf561efe5b33, type: 3}
 --- !u!1 &8164078558771037576
 GameObject:
   m_ObjectHideFlags: 0

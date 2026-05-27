@@ -583,6 +583,7 @@ MonoBehaviour:
   jumpSound: {fileID: 8300000, guid: aad764e98302718409099d90023e7fea, type: 3}
   pushSound: {fileID: 8300000, guid: 019bc7bfff8c20343ac12f446546cf14, type: 3}
   tileSize: 2
+  stuckDuration: 0.5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
