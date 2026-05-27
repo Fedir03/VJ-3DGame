@@ -543,9 +543,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1843085260}
   - component: {fileID: 1843085261}
+  - component: {fileID: 1843085262}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -582,8 +583,32 @@ MonoBehaviour:
   heightJump: 0.5
   jumpSound: {fileID: 8300000, guid: aad764e98302718409099d90023e7fea, type: 3}
   pushSound: {fileID: 8300000, guid: 019bc7bfff8c20343ac12f446546cf14, type: 3}
+  attackSound: {fileID: 0}
   tileSize: 2
   stuckDuration: 0.5
+  attackDuration: 0.5
+  maxHealth: 3
+--- !u!65 &1843085262
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1843085259}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.7011387, y: 2.319357, z: 1}
+  m_Center: {x: 0.079684764, y: 1.1173604, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

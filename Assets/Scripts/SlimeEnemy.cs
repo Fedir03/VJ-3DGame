@@ -12,6 +12,7 @@ public class SlimeEnemy : MonoBehaviour
 
     private float timer = 0.0f;
     private bool isMoving = false;
+    private bool isAttacking = false;
     private float timeInMove = 0.0f;
 
     private Vector3 initialPos;
@@ -21,7 +22,7 @@ public class SlimeEnemy : MonoBehaviour
 
     void Update()
     {
-        if (!isMoving)
+        if (!isMoving && !isAttacking)
         {
             timer += Time.deltaTime;
             if (timer >= moveInterval)
@@ -30,9 +31,13 @@ public class SlimeEnemy : MonoBehaviour
                 PrepareRandomMove();
             }
         }
-        else
+        else if (isMoving)
         {
             UpdateMovement();
+        }
+        else if (isAttacking)
+        {
+            UpdateAttack();
         }
     }
 
@@ -51,6 +56,8 @@ public class SlimeEnemy : MonoBehaviour
 
         bool foundValidMove = false;
         Vector3 chosenDir = Vector3.zero;
+        bool attackingPlayer = false;
+        MovePlayer targetPlayer = null;
 
         foreach (Vector3 dir in directions)
         {
@@ -67,11 +74,24 @@ public class SlimeEnemy : MonoBehaviour
 
             foreach (RaycastHit hit in hits)
             {
+                if (hit.collider.CompareTag("Player"))
+                {
+                    attackingPlayer = true;
+                    targetPlayer = hit.collider.GetComponent<MovePlayer>();
+                    chosenDir = dir;
+                    break;
+                }
+
                 if (hit.collider.CompareTag("Wall") || hit.collider.CompareTag("Box") || hit.collider.CompareTag("Enemy"))
                 {
                     isBlockedByPhysics = true;
                     break;
                 }
+            }
+
+            if (attackingPlayer)
+            {
+                break;
             }
 
             if (!isBlockedByPhysics)
@@ -81,6 +101,20 @@ public class SlimeEnemy : MonoBehaviour
                 reservedDestinations.Add(targetPos);
                 break;
             }
+        }
+
+        if (attackingPlayer)
+        {
+            vecMove = chosenDir * tileSize;
+            transform.rotation = Quaternion.LookRotation(chosenDir);
+            isAttacking = true;
+            timeInMove = 0.0f;
+
+            if (targetPlayer != null)
+            {
+                targetPlayer.TakeDamage(1);
+            }
+            return;
         }
 
         LeaveSlimeTrail();
@@ -139,6 +173,23 @@ public class SlimeEnemy : MonoBehaviour
         {
             Vector3 jumpMove = heightJump * Mathf.Sin(speed * timeInMove * Mathf.PI) * Vector3.up;
             transform.position = initialPos + (speed * timeInMove * vecMove) + jumpMove;
+        }
+    }
+
+    private void UpdateAttack()
+    {
+        timeInMove += Time.deltaTime;
+
+        if (timeInMove > 1.0f / speed)
+        {
+            transform.position = initialPos;
+            isAttacking = false;
+        }
+        else
+        {
+            float forwardBackward = Mathf.Sin(speed * timeInMove * Mathf.PI);
+            Vector3 bumpMove = vecMove * 0.5f * forwardBackward;
+            transform.position = initialPos + bumpMove;
         }
     }
 

@@ -9,36 +9,49 @@ enum Direction { UP = 0, RIGHT, DOWN, LEFT };
 
 public class MovePlayer : MonoBehaviour
 {
-    public float speed = 1.0f;              
-    public float heightJump = 0.5f;         
-    public AudioClip jumpSound, pushSound, attackSound;  
+    public float speed = 1.0f;
+    public float heightJump = 0.5f;
+    public AudioClip jumpSound, pushSound, attackSound;
     public float tileSize = 2.0f;
 
-    public float stuckDuration = 1.0f;      
-    private float stuckTimer = 0.0f;        
+    public float stuckDuration = 1.0f;
+    private float stuckTimer = 0.0f;
 
-    public float attackDuration = 0.5f;     
-    private float attackTimer = 0.0f;       
+    public float attackDuration = 0.5f;
+    private float attackTimer = 0.0f;
 
-    PlayerState state;               
-    Direction dir;                   
-    Vector3 initialPosMove, vecMove; 
-    float timeInMove;                
+    public int maxHealth = 3;
+    private int currentHealth;
 
-    bool bMoveBox;          
-    GameObject box;         
-    Vector3 initialPosBox;  
+    PlayerState state;
+    Direction dir;
+    Vector3 initialPosMove, vecMove;
+    float timeInMove;
+
+    bool bMoveBox;
+    GameObject box;
+    Vector3 initialPosBox;
 
     void Start()
     {
         state = PlayerState.STOP;
         dir = Direction.DOWN;
+        currentHealth = maxHealth;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        if (currentHealth <= 0)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
-            SceneManager.LoadScene("SampleScene");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
         if (state == PlayerState.STUCK)
         {
@@ -47,7 +60,7 @@ public class MovePlayer : MonoBehaviour
             {
                 state = PlayerState.STOP;
             }
-            return; 
+            return;
         }
 
         if (state == PlayerState.ATTACK)
@@ -64,7 +77,7 @@ public class MovePlayer : MonoBehaviour
         {
             bool bMove = false;
             Direction dirMove = Direction.DOWN;
-            if(Input.GetKey(KeyCode.UpArrow))
+            if (Input.GetKey(KeyCode.UpArrow))
             {
                 bMove = true;
                 dirMove = Direction.RIGHT;
@@ -96,7 +109,7 @@ public class MovePlayer : MonoBehaviour
     private bool PrepareMovement(Direction dirMove)
     {
         bool bMove = true;
-        
+
         float angleMove = Mathf.PI * (int)dirMove / 2.0f;
 
         initialPosMove = transform.localPosition;
@@ -106,10 +119,10 @@ public class MovePlayer : MonoBehaviour
         if (enemyObj != null)
         {
             Destroy(enemyObj);
-            
+
             state = PlayerState.ATTACK;
             attackTimer = attackDuration;
-            
+
             transform.Rotate(0.0f, 90.0f * ((int)dirMove - (int)dir), 0.0f);
             dir = dirMove;
 
@@ -137,7 +150,7 @@ public class MovePlayer : MonoBehaviour
                     bMove = false;
             }
         }
-        
+
         if (bMove)
         {
             state = PlayerState.MOVE;
@@ -160,8 +173,8 @@ public class MovePlayer : MonoBehaviour
         RaycastHit[] hits = Physics.RaycastAll(P, v, max);
         foreach (RaycastHit hit in hits)
         {
-            if((hit.distance > min) && (hit.distance < max) && ((tag == null) || (hit.collider.gameObject.tag == tag)))
-                if(hit.distance < closestDistance)
+            if ((hit.distance > min) && (hit.distance < max) && ((tag == null) || (hit.collider.gameObject.tag == tag)))
+                if (hit.distance < closestDistance)
                 {
                     closestDistance = hit.distance;
                     obj = hit.collider.gameObject;
@@ -177,7 +190,7 @@ public class MovePlayer : MonoBehaviour
         if (timeInMove > 1.0f / speed)
         {
             transform.localPosition = initialPosMove + vecMove;
-            
+
             if (bMoveBox)
             {
                 bMoveBox = false;
@@ -187,14 +200,14 @@ public class MovePlayer : MonoBehaviour
             bool landedOnSlime = false;
             Vector3 rayOriginDown = transform.position + Vector3.up * 0.5f;
             RaycastHit[] floorHits = Physics.RaycastAll(rayOriginDown, Vector3.down, 1.0f);
-            
+
             foreach (RaycastHit hit in floorHits)
             {
                 if (hit.collider.CompareTag("SlimeTrail"))
                 {
                     Destroy(hit.collider.gameObject);
                     landedOnSlime = true;
-                    break; 
+                    break;
                 }
             }
 
