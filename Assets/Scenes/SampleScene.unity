@@ -157,12 +157,12 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
     m_Bias: 0.05
-    m_NormalBias: 0.4
+    m_NormalBias: 0
     m_NearPlane: 0.2
     m_CullingMatrixOverride:
       e00: 1
@@ -209,13 +209,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: 0.36964378, y: 0.23911767, z: -0.09904577, w: 0.89239913}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: 30, z: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -303,13 +303,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.22414392, y: 0.48296294, z: -0.12940955, w: 0.8365163}
+  m_LocalRotation: {x: 0.24632373, y: 0.5470295, z: -0.1724777, w: 0.7812393}
   m_LocalPosition: {x: -19.6, y: 16.9, z: -28.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 30, y: 60, z: 0}
+  m_LocalEulerAnglesHint: {x: 35, y: 70, z: 0}
 --- !u!82 &963194229
 AudioSource:
   m_ObjectHideFlags: 0
@@ -420,7 +420,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1843085260}
   smoothSpeed: 5
-  offset: {x: 0, y: 0, z: 0}
+  offset: {x: -23.4, y: 17.4, z: -9.8}
 --- !u!1 &1182457123
 GameObject:
   m_ObjectHideFlags: 0
@@ -451,9 +451,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1843085259}
-  ground: {fileID: 919132149155446097, guid: 6a780218c1aa2ce4fbae94b89f8b3543, type: 3}
-  wall: {fileID: 2512714034962792149, guid: facace8863641b14d80702e20a53d8d9, type: 3}
-  box: {fileID: 6057771484784391244, guid: e20d5a2a58984bc47bc259277f7db9d1, type: 3}
+  ground: {fileID: 919132149155446097, guid: 423bd4f3708031843ab4dcebd5aaea4c, type: 3}
+  wall: {fileID: 8727369292978390695, guid: 44e5cf0245d7c3d4a9e8447e9dc77e4a, type: 3}
+  box: {fileID: 8000400909922457700, guid: 6a96de4b1b6cc464d8ca3c8a1f98e117, type: 3}
   goal: {fileID: 1851759096616309945, guid: 82a5f1ed78ed1a94a94a536658b11d9e, type: 3}
   tileSize: 2
 --- !u!4 &1182457125
