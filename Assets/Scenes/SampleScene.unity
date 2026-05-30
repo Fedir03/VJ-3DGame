@@ -253,8 +253,8 @@ Camera:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.21960786, g: 0.03137255, b: 0.4156863, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -456,6 +456,10 @@ MonoBehaviour:
   box: {fileID: 8000400909922457700, guid: 6a96de4b1b6cc464d8ca3c8a1f98e117, type: 3}
   goal: {fileID: 1851759096616309945, guid: 82a5f1ed78ed1a94a94a536658b11d9e, type: 3}
   tileSize: 2
+  wallPrefabs:
+  - {fileID: 7020857872379492730, guid: 1fde32bb5f6c6d749ae29bb009c0cc47, type: 3}
+  doorPrefab: {fileID: 7020857872379492730, guid: 1fde32bb5f6c6d749ae29bb009c0cc47, type: 3}
+  invisibleBorder: {fileID: 4087892283828061247, guid: 37f625e359c72b24b8f1863578a3f1e0, type: 3}
 --- !u!4 &1182457125
 Transform:
   m_ObjectHideFlags: 0
