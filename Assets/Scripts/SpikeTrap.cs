@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class SpikeTrap : MonoBehaviour
 {
-    public float idleDuration = 2f;
-    public float warningDuration = 0.5f;
+    public float idleDuration = 2.0f;
+    public float warningDuration = 1.0f;
     public float activeDuration = 0.5f;
 
     public Animator animator;
@@ -78,6 +78,14 @@ public class SpikeTrap : MonoBehaviour
                 if (player != null)
                 {
                     player.TakeDamage(1);
+                }
+            }
+            else if (hit.CompareTag("Enemy"))
+            {
+                SlimeEnemy slime = hit.GetComponentInParent<SlimeEnemy>();
+                if (slime != null)
+                {
+                    Destroy(slime.gameObject);
                 }
             }
         }

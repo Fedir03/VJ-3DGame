@@ -9,20 +9,36 @@ public class SlimeEnemy : MonoBehaviour
     public float heightJump = 0.5f;
     public float tileSize = 2.0f;
     public GameObject slimeTrailPrefab;
+    public float rotationDuration = 0.2f;
+    public Animator animator;
 
     private float timer = 0.0f;
     private bool isMoving = false;
     private bool isAttacking = false;
+    private bool isRotating = false;
+    private bool willAttack = false;
     private float timeInMove = 0.0f;
+    private float timeInRotation = 0.0f;
 
     private Vector3 initialPos;
     private Vector3 vecMove;
+    private Quaternion startRot;
+    private Quaternion targetRot;
+    private MovePlayer targetPlayerToDamage;
 
     private static HashSet<Vector3> reservedDestinations = new HashSet<Vector3>();
 
+    void Start()
+    {
+        if (animator != null)
+        {
+            animator.SetTrigger("Idle");
+        }
+    }
+
     void Update()
     {
-        if (!isMoving && !isAttacking)
+        if (!isMoving && !isAttacking && !isRotating)
         {
             timer += Time.deltaTime;
             if (timer >= moveInterval)
@@ -30,6 +46,10 @@ public class SlimeEnemy : MonoBehaviour
                 timer = 0.0f;
                 PrepareRandomMove();
             }
+        }
+        else if (isRotating)
+        {
+            UpdateRotation();
         }
         else if (isMoving)
         {
@@ -69,20 +89,22 @@ public class SlimeEnemy : MonoBehaviour
             }
 
             bool isBlockedByPhysics = false;
-            Vector3 rayOrigin = initialPos + (Vector3.up * 0.5f);
-            RaycastHit[] hits = Physics.RaycastAll(rayOrigin, dir, tileSize);
 
-            foreach (RaycastHit hit in hits)
+            Vector3 checkCenter = targetPos + (Vector3.up * 0.5f);
+            Collider[] hits = Physics.OverlapSphere(checkCenter, tileSize * 0.4f);
+
+            foreach (Collider hit in hits)
             {
-                if (hit.collider.CompareTag("Player"))
+                if (hit.CompareTag("Player"))
                 {
                     attackingPlayer = true;
-                    targetPlayer = hit.collider.GetComponent<MovePlayer>();
+                    targetPlayer = hit.GetComponentInParent<MovePlayer>();
                     chosenDir = dir;
                     break;
                 }
 
-                if (hit.collider.CompareTag("Wall") || hit.collider.CompareTag("Box") || hit.collider.CompareTag("Enemy"))
+                if (hit.gameObject != this.gameObject &&
+                   (hit.CompareTag("Wall") || hit.CompareTag("Box") || hit.CompareTag("Enemy")))
                 {
                     isBlockedByPhysics = true;
                     break;
@@ -106,14 +128,14 @@ public class SlimeEnemy : MonoBehaviour
         if (attackingPlayer)
         {
             vecMove = chosenDir * tileSize;
-            transform.rotation = Quaternion.LookRotation(chosenDir);
-            isAttacking = true;
-            timeInMove = 0.0f;
+            startRot = transform.rotation;
+            targetRot = Quaternion.LookRotation(chosenDir);
 
-            if (targetPlayer != null)
-            {
-                targetPlayer.TakeDamage(1);
-            }
+            isRotating = true;
+            willAttack = true;
+            timeInRotation = 0.0f;
+            targetPlayerToDamage = targetPlayer;
+
             return;
         }
 
@@ -122,16 +144,52 @@ public class SlimeEnemy : MonoBehaviour
         if (foundValidMove)
         {
             vecMove = chosenDir * tileSize;
-            transform.rotation = Quaternion.LookRotation(chosenDir);
+            startRot = transform.rotation;
+            targetRot = Quaternion.LookRotation(chosenDir);
         }
         else
         {
             vecMove = Vector3.zero;
-            transform.rotation = Quaternion.LookRotation(directions[0]);
+            startRot = transform.rotation;
+            targetRot = Quaternion.LookRotation(directions[0]);
         }
 
-        isMoving = true;
-        timeInMove = 0.0f;
+        isRotating = true;
+        willAttack = false;
+        timeInRotation = 0.0f;
+    }
+
+    private void UpdateRotation()
+    {
+        timeInRotation += Time.deltaTime;
+        float t = timeInRotation / rotationDuration;
+
+        if (t >= 1.0f)
+        {
+            transform.rotation = targetRot;
+            isRotating = false;
+            timeInMove = 0.0f;
+
+            if (willAttack)
+            {
+                isAttacking = true;
+                if (animator != null) animator.SetTrigger("Attack");
+
+                if (targetPlayerToDamage != null)
+                {
+                    targetPlayerToDamage.TakeDamage(1);
+                }
+            }
+            else
+            {
+                isMoving = true;
+                if (animator != null) animator.SetTrigger("Jump");
+            }
+        }
+        else
+        {
+            transform.rotation = Quaternion.Slerp(startRot, targetRot, t);
+        }
     }
 
     private void LeaveSlimeTrail()
@@ -139,10 +197,11 @@ public class SlimeEnemy : MonoBehaviour
         if (slimeTrailPrefab == null) return;
 
         bool alreadyHasTrail = false;
-        RaycastHit[] hits = Physics.RaycastAll(initialPos + Vector3.up * 0.5f, Vector3.down, 1.0f);
-        foreach (RaycastHit hit in hits)
+        Collider[] hits = Physics.OverlapSphere(initialPos + Vector3.up * 0.5f, tileSize * 0.4f);
+
+        foreach (Collider hit in hits)
         {
-            if (hit.collider.CompareTag("SlimeTrail"))
+            if (hit.CompareTag("SlimeTrail"))
             {
                 alreadyHasTrail = true;
                 break;
@@ -164,6 +223,8 @@ public class SlimeEnemy : MonoBehaviour
             transform.position = initialPos + vecMove;
             isMoving = false;
 
+            if (animator != null) animator.SetTrigger("Idle");
+
             if (vecMove != Vector3.zero)
             {
                 reservedDestinations.Remove(initialPos + vecMove);
@@ -184,6 +245,8 @@ public class SlimeEnemy : MonoBehaviour
         {
             transform.position = initialPos;
             isAttacking = false;
+
+            if (animator != null) animator.SetTrigger("Idle");
         }
         else
         {

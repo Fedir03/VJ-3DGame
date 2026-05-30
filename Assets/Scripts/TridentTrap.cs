@@ -89,6 +89,14 @@ public class DirectionalTrap : MonoBehaviour
                     player.TakeDamage(1);
                 }
             }
+            else if (hit.CompareTag("Enemy"))
+            {
+                SlimeEnemy slime = hit.GetComponentInParent<SlimeEnemy>();
+                if (slime != null)
+                {
+                    Destroy(slime.gameObject);
+                }
+            }
         }
     }
 }
