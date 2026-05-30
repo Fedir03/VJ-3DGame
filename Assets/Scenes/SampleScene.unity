@@ -454,7 +454,7 @@ MonoBehaviour:
   ground: {fileID: 919132149155446097, guid: 423bd4f3708031843ab4dcebd5aaea4c, type: 3}
   wall: {fileID: 8727369292978390695, guid: 44e5cf0245d7c3d4a9e8447e9dc77e4a, type: 3}
   box: {fileID: 8000400909922457700, guid: 6a96de4b1b6cc464d8ca3c8a1f98e117, type: 3}
-  goal: {fileID: 1851759096616309945, guid: 82a5f1ed78ed1a94a94a536658b11d9e, type: 3}
+  goal: {fileID: 6698541700401794162, guid: 7af1348cf4ad0624eaa6fc949e3cca21, type: 3}
   tileSize: 2
   wallPrefabs:
   - {fileID: 7020857872379492730, guid: 1fde32bb5f6c6d749ae29bb009c0cc47, type: 3}
