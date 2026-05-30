@@ -205,7 +205,6 @@ public class MovePlayer : MonoBehaviour
             {
                 if (hit.collider.CompareTag("SlimeTrail"))
                 {
-                    Destroy(hit.collider.gameObject);
                     landedOnSlime = true;
                     break;
                 }

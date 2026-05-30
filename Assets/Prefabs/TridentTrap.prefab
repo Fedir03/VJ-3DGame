@@ -64,9 +64,10 @@ GameObject:
   - component: {fileID: 4528615613794809020}
   - component: {fileID: 3089329164675555009}
   - component: {fileID: 6563398315976252312}
+  - component: {fileID: 525525236321044234}
   m_Layer: 0
   m_Name: TridentTrap
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -130,6 +131,27 @@ MonoBehaviour:
   tileSize: 2
   animator: {fileID: 3089329164675555009}
   blockingCollider: {fileID: 172091075648929298}
+--- !u!65 &525525236321044234
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6658106832780955519}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.8908328, y: 2.7204316, z: 2.0577211}
+  m_Center: {x: 0.0107777715, y: 0.8602158, z: 0.061562777}
 --- !u!1 &7692796031729176379
 GameObject:
   m_ObjectHideFlags: 0
