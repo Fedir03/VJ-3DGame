@@ -458,7 +458,10 @@ MonoBehaviour:
   tileSize: 2
   wallPrefabs:
   - {fileID: 7020857872379492730, guid: 1fde32bb5f6c6d749ae29bb009c0cc47, type: 3}
-  doorPrefab: {fileID: 7020857872379492730, guid: 1fde32bb5f6c6d749ae29bb009c0cc47, type: 3}
+  - {fileID: 26735910087273972, guid: 0aa02b0619850f84095b3cb1bf52195d, type: 3}
+  - {fileID: 9056776994341161524, guid: 06826c02848d1684ab83d089756e3388, type: 3}
+  - {fileID: 1489243603869224177, guid: 8c1b056c65e7fc148b110ba17b797805, type: 3}
+  doorPrefab: {fileID: 3031628164664836232, guid: 081e0887601461444831e18c21102cad, type: 3}
   invisibleBorder: {fileID: 4087892283828061247, guid: 37f625e359c72b24b8f1863578a3f1e0, type: 3}
 --- !u!4 &1182457125
 Transform:

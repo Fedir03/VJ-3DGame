@@ -12,6 +12,7 @@ public class CreateLevel : MonoBehaviour
     public GameObject[] wallPrefabs;
     public GameObject doorPrefab;
     public GameObject invisibleBorder;
+    public GameObject spikeTrapPrefab;
 
     void Start()
     {
@@ -33,31 +34,45 @@ public class CreateLevel : MonoBehaviour
                 {
                     int tile = int.Parse(tokens[x]);
 
-                    GameObject obj = Instantiate(ground, new Vector3(x * tileSize, 0.0f, y * tileSize), transform.rotation);
-                    obj.transform.parent = transform;
-
                     switch (tile)
                     {
+                        case 1:
+                            GameObject floorObj = Instantiate(ground, new Vector3(x * tileSize, 0.0f, y * tileSize), transform.rotation);
+                            floorObj.transform.parent = transform;
+                            break;
                         case 2:
-                            obj = Instantiate(wall, new Vector3(x * tileSize, 0.0f, y * tileSize), transform.rotation);
-                            obj.transform.parent = transform;
+                            GameObject wallObj = Instantiate(wall, new Vector3(x * tileSize, 0.0f, y * tileSize), transform.rotation);
+                            wallObj.transform.parent = transform;
                             break;
                         case 3:
-                            obj = Instantiate(goal, new Vector3(x * tileSize, 0.0f, y * tileSize), transform.rotation);
-                            obj.transform.parent = transform;
+                            GameObject goalObj = Instantiate(goal, new Vector3(x * tileSize, 0.0f, y * tileSize), transform.rotation);
+                            goalObj.transform.parent = transform;
+                            break;
+                        case 4:
+                            if (spikeTrapPrefab != null)
+                            {
+                                GameObject trapObj = Instantiate(spikeTrapPrefab, new Vector3(x * tileSize, 0.0f, y * tileSize), transform.rotation);
+                                trapObj.transform.parent = transform;
+                            }
                             break;
                         case 5:
-                            obj = Instantiate(box, new Vector3(x * tileSize, 0.0f, y * tileSize), transform.rotation);
-                            obj.transform.parent = transform;
+                            GameObject floorForBox = Instantiate(ground, new Vector3(x * tileSize, 0.0f, y * tileSize), transform.rotation);
+                            floorForBox.transform.parent = transform;
+
+                            GameObject boxObj = Instantiate(box, new Vector3(x * tileSize, 0.0f, y * tileSize), transform.rotation);
+                            boxObj.transform.parent = transform;
                             break;
                         case 6:
+                            GameObject floorForPlayer = Instantiate(ground, new Vector3(x * tileSize, 0.0f, y * tileSize), transform.rotation);
+                            floorForPlayer.transform.parent = transform;
+
                             player.transform.position = new Vector3(x * tileSize, player.transform.position.y, y * tileSize);
                             break;
                     }
                 }
             }
 
-            int doorX = width / 2;
+            int doorY = height / 2;
 
             for (int x = -1; x <= width; x++)
             {
@@ -75,7 +90,11 @@ public class CreateLevel : MonoBehaviour
 
                         if (x == width)
                         {
-                            if (wallPrefabs != null && wallPrefabs.Length > 0)
+                            if (y == doorY && doorPrefab != null)
+                            {
+                                borderPrefab = doorPrefab;
+                            }
+                            else if (wallPrefabs != null && wallPrefabs.Length > 0)
                             {
                                 borderPrefab = wallPrefabs[Random.Range(0, wallPrefabs.Length)];
                             }
@@ -88,11 +107,7 @@ public class CreateLevel : MonoBehaviour
                         }
                         else if (y == height)
                         {
-                            if (x == doorX && doorPrefab != null)
-                            {
-                                borderPrefab = doorPrefab;
-                            }
-                            else if (wallPrefabs != null && wallPrefabs.Length > 0)
+                            if (wallPrefabs != null && wallPrefabs.Length > 0)
                             {
                                 borderPrefab = wallPrefabs[Random.Range(0, wallPrefabs.Length)];
                             }
