@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 enum PlayerState { STOP, MOVE, STUCK, ATTACK };
 
@@ -22,6 +23,9 @@ public class MovePlayer : MonoBehaviour
 
     public int maxHealth = 3;
     private int currentHealth;
+
+    public int coinCount = 0;
+    public Text coinText;
 
     PlayerState state;
     Direction dir;
@@ -45,6 +49,16 @@ public class MovePlayer : MonoBehaviour
         if (currentHealth <= 0)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+    }
+
+    public void AddCoin(int amount)
+    {
+        coinCount += amount;
+
+        if (coinText != null)
+        {
+            coinText.text = coinCount.ToString();
         }
     }
 
