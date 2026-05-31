@@ -154,7 +154,15 @@ public class MovePlayer : MonoBehaviour
         GameObject enemyObj = GetObjectInDirection("Enemy", initialPosMove, vecMove.normalized, 0.0f, tileSize);
         if (enemyObj != null)
         {
-            Destroy(enemyObj);
+            RatEnemy rat = enemyObj.GetComponentInParent<RatEnemy>();
+            if (rat != null)
+            {
+                rat.Die();
+            }
+            else
+            {
+                Destroy(enemyObj);
+            }
 
             state = PlayerState.ATTACK;
             attackTimer = attackDuration;
