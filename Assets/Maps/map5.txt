@@ -1,0 +1,24 @@
+10 5
+15 1 1 1 1 16 1 1 1 1
+1 9 1 1 4 1 12 1 1 15
+1 1 1 1 1 4 1 1 4 1
+1 1 9 1 4 1 13 1 15 1
+15 1 1 1 1 16 1 1 1 7
+
+
+% 1 -> Empty
+% 2 -> Wall
+% 3 -> Goal
+% 4 -> SpikeTrap
+% 5 -> Box
+% 6 -> Player
+% 7 -> Coin
+% 8 -> TridentTrap
+% 9 -> AxeTrap
+% 10 -> Skeleton
+% 11 -> Slime
+% 12 -> Statue1
+% 13 -> Statue2
+% 14 -> Statue3
+% 15 -> Vase
+% 16 -> Rat
