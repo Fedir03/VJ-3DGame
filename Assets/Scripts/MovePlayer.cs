@@ -27,6 +27,8 @@ public class MovePlayer : MonoBehaviour
     public int coinCount = 0;
     public Text coinText;
 
+    public GameObject[] heartsUI;
+
     PlayerState state;
     Direction dir;
     Vector3 initialPosMove, vecMove;
@@ -41,14 +43,34 @@ public class MovePlayer : MonoBehaviour
         state = PlayerState.STOP;
         dir = Direction.DOWN;
         currentHealth = maxHealth;
+        UpdateHealthUI();
     }
 
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
+        UpdateHealthUI();
+
         if (currentHealth <= 0)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+    }
+
+    private void UpdateHealthUI()
+    {
+        if (heartsUI == null) return;
+
+        for (int i = 0; i < heartsUI.Length; i++)
+        {
+            if (i < currentHealth)
+            {
+                heartsUI[i].SetActive(true);
+            }
+            else
+            {
+                heartsUI[i].SetActive(false);
+            }
         }
     }
 

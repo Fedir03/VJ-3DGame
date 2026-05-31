@@ -51,8 +51,6 @@ public class DirectionalTrap : MonoBehaviour
             {
                 blockingCollider.SetActive(true);
             }
-
-            DealDamage();
         }
         else if (currentState == 2)
         {
