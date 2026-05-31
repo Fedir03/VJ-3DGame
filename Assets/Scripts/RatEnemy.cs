@@ -190,11 +190,18 @@ public class RatEnemy : MonoBehaviour
         }
     }
 
+    public AudioClip ratDeath;
+
     public void Die()
     {
         if (isDead) return;
         isDead = true;
         StopAllCoroutines();
+
+        if (ratDeath != null)
+        {
+            AudioSource.PlayClipAtPoint(ratDeath, transform.position, 1.0f);
+        }
 
         Collider col = GetComponent<Collider>();
         if (col != null) col.enabled = false;

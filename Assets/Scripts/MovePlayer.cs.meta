@@ -3,7 +3,13 @@ guid: a6e3f81fc3a4aa54d8ff74ec94180d9a
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - jumpSound: {instanceID: 0}
+  - pushSound: {instanceID: 0}
+  - attackSound: {instanceID: 0}
+  - coinText: {instanceID: 0}
+  - coinCollectSound: {fileID: 8300000, guid: 8595ca331a5dd0b4e81600e31d434aaf, type: 3}
+  - slimeDeath: {fileID: 8300000, guid: 09da72ffa7ab30a4781004f4c64179b8, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

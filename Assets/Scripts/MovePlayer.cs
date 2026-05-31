@@ -13,6 +13,7 @@ public class MovePlayer : MonoBehaviour
     public float speed = 1.0f;
     public float heightJump = 0.5f;
     public AudioClip jumpSound, pushSound, attackSound;
+    public AudioClip coinCollectSound;
     public float tileSize = 2.0f;
 
     public float stuckDuration = 1.0f;
@@ -74,6 +75,7 @@ public class MovePlayer : MonoBehaviour
         }
     }
 
+
     public void AddCoin(int amount)
     {
         coinCount += amount;
@@ -82,6 +84,11 @@ public class MovePlayer : MonoBehaviour
         {
             coinText.text = coinCount.ToString();
         }
+
+        if (coinCollectSound != null)
+            {
+                AudioSource.PlayClipAtPoint(coinCollectSound, transform.position, 1.0f);
+            }
     }
 
     void Update()
@@ -142,6 +149,9 @@ public class MovePlayer : MonoBehaviour
         }
     }
 
+    public AudioClip slimeDeath;
+
+
     private bool PrepareMovement(Direction dirMove)
     {
         bool bMove = true;
@@ -162,6 +172,10 @@ public class MovePlayer : MonoBehaviour
             else
             {
                 Destroy(enemyObj);
+                if (slimeDeath != null)
+                {
+                    AudioSource.PlayClipAtPoint(slimeDeath, transform.position, 1.0f);
+                }
             }
 
             state = PlayerState.ATTACK;

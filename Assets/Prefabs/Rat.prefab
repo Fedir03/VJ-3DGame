@@ -69,11 +69,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileSize: 2
+  jumpHeight: 0.5
   fastMoveDuration: 0.5
   slowMoveDuration: 1
   alertDuration: 0.5
   attackCooldown: 1
+  modelRotationOffset: 90
   animator: {fileID: 2389482189737587217}
+  ratDeath: {fileID: 8300000, guid: 255d3e4f60f13fe49a815e21651b60c7, type: 3}
 --- !u!65 &8104811712984296837
 BoxCollider:
   m_ObjectHideFlags: 0
