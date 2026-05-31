@@ -12,7 +12,23 @@ public class CreateLevel : MonoBehaviour
     public GameObject[] wallPrefabs;
     public GameObject doorPrefab;
     public GameObject invisibleBorder;
+
+    [Header("Traps")]
     public GameObject spikeTrapPrefab;
+    public GameObject tridentTrapPrefab;
+    public GameObject axeTrapPrefab;
+
+    [Header("Enemies")]
+    public GameObject skeletonPrefab;
+    public GameObject slimePrefab;
+    public GameObject ratPrefab;
+
+    [Header("Props & Items")]
+    public GameObject coinPrefab;
+    public GameObject statue1Prefab;
+    public GameObject statue2Prefab;
+    public GameObject statue3Prefab;
+    public GameObject vasePrefab;
 
     void Start()
     {
@@ -67,6 +83,92 @@ public class CreateLevel : MonoBehaviour
                             floorForPlayer.transform.parent = transform;
 
                             player.transform.position = new Vector3(x * tileSize, player.transform.position.y, y * tileSize);
+                            break;
+                        case 7: // Coin
+                            GameObject floorForCoin = Instantiate(ground, new Vector3(x * tileSize, 0.0f, y * tileSize), transform.rotation);
+                            floorForCoin.transform.parent = transform;
+                            if (coinPrefab != null)
+                            {
+                                GameObject coinObj = Instantiate(coinPrefab, new Vector3(x * tileSize, 0.0f, y * tileSize), transform.rotation);
+                                coinObj.transform.parent = transform;
+                            }
+                            break;
+                        case 8: // TridentTrap
+                            if (tridentTrapPrefab != null)
+                            {
+                                GameObject tridentObj = Instantiate(tridentTrapPrefab, new Vector3(x * tileSize, 0.0f, y * tileSize), transform.rotation);
+                                tridentObj.transform.parent = transform;
+                            }
+                            break;
+                        case 9: // AxeTrap
+                            if (axeTrapPrefab != null)
+                            {
+                                GameObject axeObj = Instantiate(axeTrapPrefab, new Vector3(x * tileSize, 0.0f, y * tileSize), transform.rotation);
+                                axeObj.transform.parent = transform;
+                            }
+                            break;
+                        case 10: // Skeleton
+                            GameObject floorForSkeleton = Instantiate(ground, new Vector3(x * tileSize, 0.0f, y * tileSize), transform.rotation);
+                            floorForSkeleton.transform.parent = transform;
+                            if (skeletonPrefab != null)
+                            {
+                                GameObject skeletonObj = Instantiate(skeletonPrefab, new Vector3(x * tileSize, 0.0f, y * tileSize), transform.rotation);
+                                skeletonObj.transform.parent = transform;
+                            }
+                            break;
+                        case 11: // Slime
+                            GameObject floorForSlime = Instantiate(ground, new Vector3(x * tileSize, 0.0f, y * tileSize), transform.rotation);
+                            floorForSlime.transform.parent = transform;
+                            if (slimePrefab != null)
+                            {
+                                GameObject slimeObj = Instantiate(slimePrefab, new Vector3(x * tileSize, 0.0f, y * tileSize), transform.rotation);
+                                slimeObj.transform.parent = transform;
+                            }
+                            break;
+                        case 12: // Statue1
+                            GameObject floorForStatue1 = Instantiate(ground, new Vector3(x * tileSize, 0.0f, y * tileSize), transform.rotation);
+                            floorForStatue1.transform.parent = transform;
+                            if (statue1Prefab != null)
+                            {
+                                GameObject statue1Obj = Instantiate(statue1Prefab, new Vector3(x * tileSize, 0.0f, y * tileSize), transform.rotation);
+                                statue1Obj.transform.parent = transform;
+                            }
+                            break;
+                        case 13: // Statue2
+                            GameObject floorForStatue2 = Instantiate(ground, new Vector3(x * tileSize, 0.0f, y * tileSize), transform.rotation);
+                            floorForStatue2.transform.parent = transform;
+                            if (statue2Prefab != null)
+                            {
+                                GameObject statue2Obj = Instantiate(statue2Prefab, new Vector3(x * tileSize, 0.0f, y * tileSize), transform.rotation);
+                                statue2Obj.transform.parent = transform;
+                            }
+                            break;
+                        case 14: // Statue3
+                            GameObject floorForStatue3 = Instantiate(ground, new Vector3(x * tileSize, 0.0f, y * tileSize), transform.rotation);
+                            floorForStatue3.transform.parent = transform;
+                            if (statue3Prefab != null)
+                            {
+                                GameObject statue3Obj = Instantiate(statue3Prefab, new Vector3(x * tileSize, 0.0f, y * tileSize), transform.rotation);
+                                statue3Obj.transform.parent = transform;
+                            }
+                            break;
+                        case 15: // Vase
+                            GameObject floorForVase = Instantiate(ground, new Vector3(x * tileSize, 0.0f, y * tileSize), transform.rotation);
+                            floorForVase.transform.parent = transform;
+                            if (vasePrefab != null)
+                            {
+                                GameObject vaseObj = Instantiate(vasePrefab, new Vector3(x * tileSize, 0.0f, y * tileSize), transform.rotation);
+                                vaseObj.transform.parent = transform;
+                            }
+                            break;
+                        case 16: // Rat
+                            GameObject floorForRat = Instantiate(ground, new Vector3(x * tileSize, 0.0f, y * tileSize), transform.rotation);
+                            floorForRat.transform.parent = transform;
+                            if (ratPrefab != null)
+                            {
+                                GameObject ratObj = Instantiate(ratPrefab, new Vector3(x * tileSize, 0.0f, y * tileSize), transform.rotation);
+                                ratObj.transform.parent = transform;
+                            }
                             break;
                     }
                 }
